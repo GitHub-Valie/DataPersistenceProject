@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuUIHandler : MonoBehaviour
 {
+    public TextMeshProUGUI inputPlayerName;
+
+    public void SetPlayerName()
+    {
+        PlayerDataHandler.Instance.playerName = inputPlayerName.text;
+    }
+
     public void StartNew()
     {
         SceneManager.LoadScene(1); // Main scene #1
