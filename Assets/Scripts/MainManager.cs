@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,7 +22,7 @@ public class MainManager : MonoBehaviour
     private static string bestPlayer;
     private static int bestScore;
 
-    public TMP_Text bestPlayerInfo; // display the name and score of the record holder
+    public Text bestPlayerInfo; // display the name and score of the record holder
     
     // Start is called before the first frame update
     void Start()

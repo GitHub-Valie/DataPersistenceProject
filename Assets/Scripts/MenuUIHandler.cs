@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
-using TMPro;
+using UnityEngine.UI;
 
 public class MenuUIHandler : MonoBehaviour
 {
-    public TextMeshProUGUI inputPlayerName;
+    public InputField inputPlayerName;
 
     public void SetPlayerName()
     {
