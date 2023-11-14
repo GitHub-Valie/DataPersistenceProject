@@ -7,6 +7,7 @@ public class PlayerDataHandler : MonoBehaviour
 {
     public static PlayerDataHandler Instance;
     public string playerName;
+    public int playerScore;
     private void Awake()
     {
         /* Singleton pattern: Only one instance of 

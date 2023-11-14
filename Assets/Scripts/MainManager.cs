@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,6 +19,11 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
+    // Static variables that store data relative to the player who scored the highest
+    private static string bestPlayer;
+    private static int bestScore;
+
+    public TMP_Text bestPlayerInfo; // display the name and score of the record holder
     
     // Start is called before the first frame update
     void Start()
@@ -36,6 +42,8 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+
+        DisplayBestPlayerInfo(); // Display the best player information
     }
 
     private void Update()
@@ -65,12 +73,40 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
+        PlayerDataHandler.Instance.playerScore = m_Points;
         ScoreText.text = $"Score : {m_Points}";
     }
 
     public void GameOver()
     {
         m_GameOver = true;
+        UpdateBestPlayerInfo(); // Update the best player information
         GameOverText.SetActive(true);
+    }
+
+    private void UpdateBestPlayerInfo()
+    {
+        /* Updates the bestPlayerInfo if the current player has set a new record */
+        int currentScore = PlayerDataHandler.Instance.playerScore;
+        
+        if (currentScore > bestScore)
+        {
+            bestPlayer = PlayerDataHandler.Instance.playerName;
+            bestScore = currentScore;
+            bestPlayerInfo.text = $"Best score is {bestScore} by {bestPlayer}";
+        }
+    }
+
+    private void DisplayBestPlayerInfo()
+    {
+        /* Displays the bestPlayer/bestScore if it exists/is not =0 */
+        if (bestPlayer == null && bestScore == 0)
+        {
+            bestPlayerInfo.text = "";
+        }
+        else
+        {
+            bestPlayerInfo.text = $"Best score is {bestScore} by {bestPlayer}";
+        }
     }
 }
