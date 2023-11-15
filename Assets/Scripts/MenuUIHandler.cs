@@ -11,7 +11,15 @@ public class MenuUIHandler : MonoBehaviour
 
     public void SetPlayerName()
     {
+        if (PlayerDataHandler.Instance.playerName != null)
+        {
+            inputPlayerName.placeholder.GetComponent<Text>().text = PlayerDataHandler.Instance.playerName;
+        }
+        
         PlayerDataHandler.Instance.playerName = inputPlayerName.text;
+        PlayerDataHandler.Instance.SaveInputtedPlayerName();
+        
+        Debug.Log($"Player name: {PlayerDataHandler.Instance.playerName} has been saved");
     }
 
     public void StartNew()
@@ -32,5 +40,6 @@ public class MenuUIHandler : MonoBehaviour
         #else
         Application.Quit(); // original code to quit Unity player
         #endif
+        Debug.Log("The application has closed");
     }
 }
