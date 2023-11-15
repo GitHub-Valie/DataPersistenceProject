@@ -10,7 +10,9 @@ public class MainManager : MonoBehaviour
     public int LineCount = 6;
     public Rigidbody Ball;
 
+    /* UI Text elements */
     public Text ScoreText;
+    public Text BestPlayerInfo; // displays the name and score of the record holder
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -21,8 +23,6 @@ public class MainManager : MonoBehaviour
     // Static variables that store data relative to the player who scored the highest
     private static string bestPlayer;
     private static int bestScore;
-
-    public Text bestPlayerInfo; // display the name and score of the record holder
     
     // Start is called before the first frame update
     void Start()
@@ -43,6 +43,7 @@ public class MainManager : MonoBehaviour
         }
 
         DisplayBestPlayerInfo(); // Display the best player information
+        // Debug.Log("MainManager has started");
     }
 
     private void Update()
@@ -85,14 +86,14 @@ public class MainManager : MonoBehaviour
 
     private void UpdateBestPlayerInfo()
     {
-        /* Updates the bestPlayerInfo if the current player has set a new record */
+        /* Updates the BestPlayerInfo if the player has set a new record */
         int currentScore = PlayerDataHandler.Instance.playerScore;
         
         if (currentScore > bestScore)
         {
             bestPlayer = PlayerDataHandler.Instance.playerName;
             bestScore = currentScore;
-            bestPlayerInfo.text = $"Best score is {bestScore} by {bestPlayer}";
+            BestPlayerInfo.text = $"Best score : {bestPlayer} : {bestScore}";
         }
     }
 
@@ -101,11 +102,11 @@ public class MainManager : MonoBehaviour
         /* Displays the bestPlayer/bestScore if it exists/is not =0 */
         if (bestPlayer == null && bestScore == 0)
         {
-            bestPlayerInfo.text = "";
+            BestPlayerInfo.text = "";
         }
         else
         {
-            bestPlayerInfo.text = $"Best score is {bestScore} by {bestPlayer}";
+            BestPlayerInfo.text = $"Best score is {bestScore} by {bestPlayer}";
         }
     }
 }
