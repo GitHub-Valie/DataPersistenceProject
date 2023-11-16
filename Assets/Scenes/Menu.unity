@@ -377,8 +377,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InputPlayerName: {fileID: 1484231251}
-  lastPlayerName: 
+  BestPlayerInfo: {fileID: 995711998}
+  placeholderName: 
   playerName: 
+  bestPlayer: 
+  bestScore: 0
   playerScore: 0
 --- !u!4 &695790505
 Transform:

@@ -21,8 +21,8 @@ public class MainManager : MonoBehaviour
     private bool m_GameOver = false;
 
     // Static variables that store data relative to the player who scored the highest
-    private static string bestPlayer;
-    private static int bestScore;
+    [SerializeField] static string bestPlayer;
+    [SerializeField] static int bestScore;
     
     // Start is called before the first frame update
     void Start()
@@ -42,8 +42,9 @@ public class MainManager : MonoBehaviour
             }
         }
 
-        DisplayBestPlayerInfo(); // Displays the best player information
-        // Debug.Log("MainManager has started");
+        Debug.Log("MainManager has started");
+        PlayerDataHandler.Instance.SaveSessionData();
+        DisplayBestPlayerInfo(BestPlayerInfo); // Displays the best player information
     }
 
     private void Update()
@@ -83,7 +84,7 @@ public class MainManager : MonoBehaviour
             - Update the BestPlayerInfo text so it displays the correct info next game
             - Save the session data that must persist 
         */
-        
+
         m_GameOver = true;
         UpdateBestPlayerInfo();
         PlayerDataHandler.Instance.SaveSessionData();
@@ -94,25 +95,32 @@ public class MainManager : MonoBehaviour
     {
         /* Perform a check on bestScore by comparing it to the score of the current player */
         int currentScore = PlayerDataHandler.Instance.playerScore;
-        
-        if (currentScore > bestScore)
+        Debug.Log($"Before updating | Current score: {currentScore}. Best score (static variable): {bestScore}. Best score (PlayerDataHandler): {PlayerDataHandler.Instance.bestScore}");
+        if (currentScore > PlayerDataHandler.Instance.bestScore)
         {
             bestPlayer = PlayerDataHandler.Instance.playerName;
+            PlayerDataHandler.Instance.bestPlayer = bestPlayer;
+            
             bestScore = currentScore;
-            BestPlayerInfo.text = $"Best score : {bestPlayer} : {bestScore}";
+            PlayerDataHandler.Instance.bestScore = bestScore;
         }
+        Debug.Log($"After updating | Current score: {currentScore}. Best score (static variable): {bestScore}");
     }
 
-    private void DisplayBestPlayerInfo()
+    public void DisplayBestPlayerInfo(Text TextUI)
     {
-        /* Displays the bestPlayer/bestScore if it exists/is not =0 */
-        if (bestPlayer == null && bestScore == 0)
+        /* Displays the TextUI bestPlayer if not null and bestScore if not = 0 */
+        // Debug.Log("Display data on best player");
+        
+        if (PlayerDataHandler.Instance.bestPlayer == null && PlayerDataHandler.Instance.bestScore == 0)
         {
-            BestPlayerInfo.text = "";
+            TextUI.text = "";
+            // Debug.Log("A score is yet to be set");
         }
         else
         {
-            BestPlayerInfo.text = $"Best score is {bestScore} by {bestPlayer}";
+            TextUI.text = $"Best score : {PlayerDataHandler.Instance.bestScore} : {PlayerDataHandler.Instance.bestPlayer}";
+            // Debug.Log($"Best Score is {PlayerDataHandler.Instance.bestScore}. Best Player is {PlayerDataHandler.Instance.bestPlayer}");
         }
     }
 }
