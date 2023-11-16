@@ -7,19 +7,12 @@ using UnityEngine.UI;
 
 public class MenuUIHandler : MonoBehaviour
 {
-    public InputField inputPlayerName;
+    public Text inputPlayerName;
 
-    public void SetPlayerName()
+    public void SetPlayerName(Text textInputField)
     {
-        if (PlayerDataHandler.Instance.playerName != null)
-        {
-            inputPlayerName.placeholder.GetComponent<Text>().text = PlayerDataHandler.Instance.playerName;
-        }
-        
-        PlayerDataHandler.Instance.playerName = inputPlayerName.text;
-        PlayerDataHandler.Instance.SaveInputtedPlayerName();
-        
-        Debug.Log($"Player name: {PlayerDataHandler.Instance.playerName} has been saved");
+        Debug.Log($"Text input: {textInputField.text}");
+        PlayerDataHandler.Instance.playerName = textInputField.text;
     }
 
     public void StartNew()

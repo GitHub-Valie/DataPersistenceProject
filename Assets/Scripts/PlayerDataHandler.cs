@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class PlayerDataHandler : MonoBehaviour
 {
     public static PlayerDataHandler Instance;
+    public InputField InputPlayerName;
+    public string placeholderName;
     public string playerName;
     public int playerScore;
     private void Awake()
@@ -21,7 +23,8 @@ public class PlayerDataHandler : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        LoadInputtedPlayerName();
+        LoadLastPlayerName();
+        SetPlaceholderName(InputPlayerName);
     }
 
     [System.Serializable]
@@ -30,9 +33,9 @@ public class PlayerDataHandler : MonoBehaviour
         public string inputtedPlayerName;
     }
 
-    public void SaveInputtedPlayerName()
+    public void SaveSessionData()
     {
-        // Saves the text inputted by the player in the input field
+        /* Stores the player name to load it as text in placeholder next session */
         SaveData data = new SaveData();
         data.inputtedPlayerName = playerName;
 
@@ -41,18 +44,42 @@ public class PlayerDataHandler : MonoBehaviour
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
-    public void LoadInputtedPlayerName()
+    public void LoadLastPlayerName()
     {
-        // Loads session data
+        /* Loads session data */
         string path = Application.persistentDataPath + "/savefile.json";
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            // Sets the placeholder text in the input field equal to the saved player name
-            Debug.Log(data.inputtedPlayerName);
+            /* Sets the name inputted by the player from last session as placeholder */
+            placeholderName = data.inputtedPlayerName;
+            // Debug.Log($"{placeholderName} played last session");
         }
     }
 
+    public void SetPlaceholderName(InputField inputField)
+    {
+        /* Uses the last player name as a placeholder in the input text field */
+        
+        // Debug.Log($"Placeholder before if statement: {inputField.placeholder.GetComponent<Text>().text}");
+        
+        if (Instance.placeholderName != null)
+        {
+            inputField.placeholder.GetComponent<Text>().text = Instance.placeholderName;
+            // Debug.Log($"Last player {Instance.placeholderName} set as placeholder");
+        }
+        else
+        {
+            inputField.placeholder.GetComponent<Text>().text = "Enter name";
+            // Debug.Log("No player name to set as placeholder");
+        }
+    }
+
+    public void SetPlayerName(InputField inputField)
+    {     
+        inputField.text = playerName;       
+        // Debug.Log($"Player name is set as {Instance.playerName} for this session");
+    }
 }

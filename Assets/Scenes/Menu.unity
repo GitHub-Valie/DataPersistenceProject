@@ -376,9 +376,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffac163077e80cc4dbbef0db6d3cf1ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InputPlayerName: {fileID: 1484231251}
+  lastPlayerName: 
   playerName: 
   playerScore: 0
-  inputField: {fileID: 1484231251}
 --- !u!4 &695790505
 Transform:
   m_ObjectHideFlags: 0
@@ -992,10 +993,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1853410040}
         m_TargetAssemblyTypeName: MenuUIHandler, Assembly-CSharp
         m_MethodName: SetPlayerName
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 100642828}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1545,7 +1546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5937236aefd96804d89931dae1f1cc8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputPlayerName: {fileID: 1484231251}
+  inputPlayerName: {fileID: 0}
 --- !u!1 &1866695361
 GameObject:
   m_ObjectHideFlags: 0

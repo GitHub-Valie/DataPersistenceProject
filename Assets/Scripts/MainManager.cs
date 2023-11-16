@@ -42,7 +42,7 @@ public class MainManager : MonoBehaviour
             }
         }
 
-        DisplayBestPlayerInfo(); // Display the best player information
+        DisplayBestPlayerInfo(); // Displays the best player information
         // Debug.Log("MainManager has started");
     }
 
@@ -79,14 +79,20 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        /* Upon GameOver:
+            - Update the BestPlayerInfo text so it displays the correct info next game
+            - Save the session data that must persist 
+        */
+        
         m_GameOver = true;
-        UpdateBestPlayerInfo(); // Update the best player information
+        UpdateBestPlayerInfo();
+        PlayerDataHandler.Instance.SaveSessionData();
         GameOverText.SetActive(true);
     }
 
     private void UpdateBestPlayerInfo()
     {
-        /* Updates the BestPlayerInfo if the player has set a new record */
+        /* Perform a check on bestScore by comparing it to the score of the current player */
         int currentScore = PlayerDataHandler.Instance.playerScore;
         
         if (currentScore > bestScore)
