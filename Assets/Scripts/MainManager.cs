@@ -93,16 +93,20 @@ public class MainManager : MonoBehaviour
 
     private void UpdateBestPlayerInfo()
     {
-        /* Perform a check on bestScore by comparing it to the score of the current player */
+        /* Perform a check on the value of the score of the current player by 
+        comparing it to the value of the bestScore stored in the singleton */
         int currentScore = PlayerDataHandler.Instance.playerScore;
-        Debug.Log($"Before updating | Current score: {currentScore}. Best score (static variable): {bestScore}. Best score (PlayerDataHandler): {PlayerDataHandler.Instance.bestScore}");
+        Debug.Log($"Before updating | Current score: {currentScore}. Best score (static variable): {bestScore}. Best score (in singleton): {PlayerDataHandler.Instance.bestScore}");
+        
         if (currentScore > PlayerDataHandler.Instance.bestScore)
         {
+            /* Fill the static bestPlayer variable with the name of the player stored in th singleton */
             bestPlayer = PlayerDataHandler.Instance.playerName;
-            PlayerDataHandler.Instance.bestPlayer = bestPlayer;
+            PlayerDataHandler.Instance.bestPlayer = bestPlayer; // Store this new bestPlayer in the singleton
             
+            /* Fill the static bestScore variable with the current score of the player in the singleton */
             bestScore = currentScore;
-            PlayerDataHandler.Instance.bestScore = bestScore;
+            PlayerDataHandler.Instance.bestScore = bestScore; // Store this new bestScore in the singleton
         }
         Debug.Log($"After updating | Current score: {currentScore}. Best score (static variable): {bestScore}");
     }
